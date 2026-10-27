@@ -43,7 +43,18 @@
   <header class="site-header" id="top">
     <div class="wrap header-inner">
       <a class="brand" href="#top" aria-label="PaDance, naar boven">
-        <img src="assets/logo/padance-logo-black.svg" alt="PaDance" width="1135" height="351">
+        <!-- Origineel kleurlogo op het donkere label uit de pitchdeck, in delen opgebouwd zodat het beeldmerk kan bewegen.
+             Kleuren en vormen zijn exact die van padance-logo-primary.svg. -->
+        <svg class="brand-logo" viewBox="-2 -1.7 1172.5 304.4" width="1172" height="304" role="img" aria-label="PaDance">
+          <rect class="brand-pill" x="-2" y="-1.7" width="1172.5" height="304.4" rx="152.2" fill="#34323A"/>
+          <image class="brand-word" href="assets/logo/padance-wordmark-primary.svg" x="8" y="-42.75" width="1135" height="351"/>
+          <g transform="translate(66.5 33.5) scale(2.34)">
+            <g class="brand-icon">
+              <circle cx="50" cy="50" r="50" fill="#E6F53A"/>
+              <g class="brand-bars" fill="#08080B"><rect x="17.75" y="35" width="8.5" height="30" rx="4.25"/><rect x="31.75" y="24" width="8.5" height="52" rx="4.25"/><rect x="45.75" y="15" width="8.5" height="70" rx="4.25"/><rect x="59.75" y="27" width="8.5" height="46" rx="4.25"/><rect x="73.75" y="37" width="8.5" height="26" rx="4.25"/></g>
+            </g>
+          </g>
+        </svg>
       </a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -103,8 +114,8 @@
         </div>
 
         <div class="hero-visual">
-          <!-- EIGEN BEELD: vervang images/hero-placeholder.svg door bv. images/hero.jpg (staand, ca. 1200×1500 px) -->
-          <img class="hero-img" src="images/hero-placeholder.svg" alt="" width="1200" height="1500">
+          <!-- Foto: César O'neill via Unsplash (Unsplash License), https://unsplash.com/photos/a-man-and-woman-posing-on-a-padel-court-dHDYCMVAsmU -->
+          <img class="hero-img" src="images/hero.jpg" alt="Een jonge man en vrouw in zwart-wit outfit poseren in de zon aan een padelterrein" width="687" height="859" fetchpriority="high">
           <div class="mini-board" aria-hidden="true">
             <div class="mini-row"><span>Padel</span><b>06</b></div>
             <div class="mini-row"><span>Muziek</span><b>06</b></div>
@@ -152,9 +163,9 @@
         </ol>
 
         <figure class="wide-figure">
-          <!-- EIGEN BEELD: vervang images/sfeer-placeholder.svg door bv. images/sfeer.jpg (liggend, ca. 1600×900 px) -->
-          <img src="images/sfeer-placeholder.svg" alt="" width="1600" height="900" loading="lazy">
-          <figcaption>Hier komt een sfeerbeeld van padel en muziek. <span class="ph">[EIGEN FOTO]</span></figcaption>
+          <!-- Foto: Luca Luperto via Pexels (Pexels License), https://www.pexels.com/photo/a-dj-at-an-outdoor-party-13902049/ -->
+          <img src="images/sfeer.jpg" alt="Een DJ draait bij zonsondergang voor een buitenfeest met lichtjes in de bomen" width="1125" height="633" loading="lazy">
+          <figcaption>Zo voelt de avond na de laatste match. Foto: Luca Luperto via Pexels.</figcaption>
         </figure>
       </div>
     </section>

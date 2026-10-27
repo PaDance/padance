@@ -11,11 +11,11 @@ PaDance Site/
 ├── css/style.css         Vormgeving (kleuren bovenaan bij :root)
 ├── js/main.js            Menu, ticketlinks en formulier (links invullen bovenaan)
 ├── images/
-│   ├── hero-placeholder.svg    Tijdelijk beeld bovenaan (vervangen)
-│   ├── sfeer-placeholder.svg   Tijdelijk sfeerbeeld (vervangen)
-│   └── og-image.png            Beeld dat verschijnt als je de link deelt
+│   ├── hero.jpg          Foto bovenaan
+│   ├── sfeer.jpg         Sfeerbeeld onder Concept
+│   └── og-image.png      Beeld dat verschijnt als je de link deelt
 ├── assets/
-│   ├── logo/             Officiële PaDance-logo's (niet aanpassen)
+│   ├── logo/             Logo-onderdelen die de site gebruikt (niet aanpassen)
 │   ├── fonts/            Lettertype Archivo (gratis, OFL-licentie)
 │   └── favicon + app-icoon
 ├── netlify.toml          Instellingen voor Netlify
@@ -61,7 +61,6 @@ Lijst van invulvelden:
 | FAQ-antwoorden: `[ANTWOORD ...]`, `[BEVESTIGEN + TICKETINFO]`, `[WEERPLAN]`, `[LEEFTIJD]`, `[ANNULERINGSVOORWAARDEN]` | Praktisch |
 | `[E-MAILADRES]`, `[INSTAGRAM-ACCOUNT]`, `[TIKTOK-ACCOUNT]` | Contact (voorbeeldcode staat erboven in een commentaar) |
 | `[LINK NAAR PRIVACYVERKLARING]`, `[NAAM STUDENTENBEDRIJF + ONDERNEMINGSNUMMER]` | Footer |
-| `[EIGEN FOTO]` | Onderschrift sfeerbeeld (weghalen zodra je een foto hebt) |
 
 Vergeet ook de **slogan** niet te bevestigen ("Padel heeft een ritme. Muziek ook." komt uit jullie pitch) en pas
 de beschrijving in de `<head>` van `index.html` aan zodra datum en locatie vastliggen.
@@ -82,12 +81,9 @@ Alle ticketknoppen gebruiken dan automatisch die link. Pas daarna ook de tekst i
 
 ## 3. Eigen beelden plaatsen
 
-1. Zet je foto in de map `images/`, bv. `hero.jpg` (staand, ca. 1200×1500 px) en `sfeer.jpg` (liggend, ca. 1600×900 px).
-2. Maak foto's eerst kleiner (onder ~300 kB), bv. met het gratis https://squoosh.app.
-3. Vervang in `index.html`:
-   - `images/hero-placeholder.svg` door `images/hero.jpg`
-   - `images/sfeer-placeholder.svg` door `images/sfeer.jpg`
-4. Vul bij een echte foto ook `alt=""` in met een korte beschrijving, bv. `alt="Duo speelt padel terwijl een DJ draait"`.
+1. Maak je foto eerst kleiner (onder ~300 kB), bv. met het gratis https://squoosh.app.
+2. Vervang in de map `images/` het bestand `hero.jpg` (staand, ca. 1200×1500 px) of `sfeer.jpg` (liggend, ca. 1600×900 px) door je eigen foto, met dezelfde naam.
+3. Pas in `index.html` bij die foto `width`, `height` en de `alt`-tekst aan (korte beschrijving, bv. `alt="Duo speelt padel terwijl een DJ draait"`), en het onderschrift bij het sfeerbeeld.
 
 Gebruik alleen foto's die jullie zelf maakten of waarvoor je toestemming hebt. Geen logo's van partners zolang die samenwerking niet bevestigd is.
 
@@ -117,7 +113,7 @@ De metadata (`og:url`, `canonical`, sitemap) gaan al uit van `https://padance.be
 - Basis: crème/zand `#F4EFE6` (de crèmekleur uit het logo) en diep baangroen `#0E3B2E`.
 - Accent: PaDance-oranje `#FF5A1F` voor knoppen. Voor oranje tekst op licht wordt het donkerdere `#D9420F` uit de pitch gebruikt, zodat het leesbaar blijft.
 - Lime `#E6F53A` alleen op donkere vlakken (scorebord, labels), zoals in het logo.
-- Het kleurlogo staat alleen op donkere achtergronden (de crème "Pa" valt weg op licht). Op licht staat de zwarte versie.
+- Het logo staat altijd in de originele kleuren. Op een lichte achtergrond staat het op het donkere label uit de pitchdeck (de crème "Pa" valt anders weg).
 
 Alle kleuren staan bovenaan in `css/style.css` en kun je daar centraal aanpassen.
 
@@ -125,3 +121,23 @@ Alle kleuren staan bovenaan in `css/style.css` en kun je daar centraal aanpassen
 
 - Een privacyverklaring (verplicht zodra je e-mailadressen verzamelt).
 - Zodra datum en locatie vastliggen: gestructureerde gegevens (schema.org `Event`) zodat Google het evenement beter toont.
+
+## Foto's
+
+| Bestand | Foto | Maker | Licentie |
+|---|---|---|---|
+| `images/hero.jpg` | [Man en vrouw op een padelterrein](https://unsplash.com/photos/a-man-and-woman-posing-on-a-padel-court-dHDYCMVAsmU) | César O'neill (Unsplash) | Unsplash License |
+| `images/sfeer.jpg` | [DJ op een buitenfeest bij zonsondergang](https://www.pexels.com/photo/a-dj-at-an-outdoor-party-13902049/) | Luca Luperto (Pexels) | Pexels License |
+
+Beide licenties: gratis, ook commercieel, naamsvermelding niet verplicht (wel netjes).
+Wek niet de indruk dat de mensen op de foto's PaDance aanbevelen.
+Zodra je eigen foto's van PaDance hebt, vervang je deze bestanden met dezelfde naam (hero staand 4:5, sfeer liggend 16:9)
+en pas je `width`/`height`, `alt` en het onderschrift in `index.html` aan.
+
+## Animaties
+
+- **Logo:** bij het openen rolt het beeldmerk binnen en springen de balkjes op als een equalizer. Bij hover bewegen ze zachtjes mee.
+  Het logo in de header is het originele kleurlogo op het donkere label uit de pitchdeck. Het staat als code in `index.html` (label + beeldmerk) plus `assets/logo/padance-wordmark-primary.svg` (woordmerk), met exact de kleuren van `padance-logo-primary.svg`.
+- **Scroll:** blokken schuiven rustig omhoog zodra ze in beeld komen (`js/main.js`, onderdeel "Scroll-animatie").
+- Wie op zijn toestel "minder beweging" heeft aangezet, ziet geen animaties. Zonder JavaScript blijft alles gewoon zichtbaar.
+- Uitzetten: verwijder in `css/style.css` het blok "Animaties".

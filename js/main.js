@@ -69,6 +69,32 @@ const CONFIG = {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  /* Scroll-animatie: blokken verschijnen zacht zodra ze in beeld komen.
+     Zonder JavaScript of met "minder beweging" aan blijft alles gewoon zichtbaar. */
+  var motionOk = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  if (motionOk && 'IntersectionObserver' in window) {
+    var targets = document.querySelectorAll(
+      '.hero-visual, .section-head, .pillar, .wide-figure, .timeline li, .lineup, ' +
+      '.ticket, .notice, .interest-form, .fact, .faq, .contact-list li'
+    );
+    targets.forEach(function (el) {
+      el.classList.add('reveal');
+      /* Elementen naast elkaar komen kort na elkaar binnen */
+      var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.setProperty('--reveal-delay', Math.min(i, 4) * 90 + 'ms');
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    targets.forEach(function (el) { io.observe(el); });
+    document.documentElement.classList.add('reveal-on');
+  }
+
   /* Jaartal in de footer */
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();

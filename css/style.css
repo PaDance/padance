@@ -110,7 +110,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   line-height: 1.45;
   white-space: normal;
 }
-.ph-dark, .section-green .ph, .site-footer .ph {
+.ph-dark, .section-green .ph, .site-footer .ph, .score-cell .ph {
   border-color: var(--lime);
   background: rgba(230, 245, 58, .12);
 }
@@ -147,7 +147,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .site-header.is-scrolled { border-bottom-color: var(--line); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 24px; }
 .brand { display: block; flex-shrink: 0; }
-.brand img { height: 48px; width: auto; }
+.brand-logo { display: block; height: 44px; width: auto; }
+.brand-icon, .brand-word, .brand-bars rect { transform-box: fill-box; transform-origin: center; }
 
 .site-nav { display: flex; align-items: center; gap: 28px; }
 .site-nav ul { display: flex; gap: 26px; }
@@ -176,7 +177,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 @media (max-width: 900px) {
   .js .nav-toggle { display: inline-flex; }
-  .brand img { height: 40px; }
   .js .site-nav {
     position: absolute; left: 0; right: 0; top: 100%;
     flex-direction: column; align-items: stretch; gap: 20px;
@@ -233,7 +233,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   letter-spacing: .16em; text-transform: uppercase; color: var(--lime);
 }
 .score-cell dd { margin: 4px 0 0; font-weight: 700; font-size: 1.0625rem; line-height: 1.35; font-variant-numeric: tabular-nums; }
-.score-cell .ph { border-color: var(--lime); background: rgba(230, 245, 58, .12); }
 
 /* Hero beeld */
 .hero-visual { position: relative; }
@@ -286,8 +285,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .section-green {
   position: relative; isolation: isolate;
   background: var(--green); color: var(--on-green);
+  overflow: hidden;
 }
-.section-green { overflow: hidden; }
 .section-green::before,
 .section-court::before {
   /* omtrek van een padelbaan (bovenaanzicht), heel subtiel */
@@ -455,7 +454,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* Contact */
 .contact-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px 72px; align-items: end; }
-.contact .kicker { margin-bottom: 20px; }
 .contact-list { border-top: 1px solid var(--green-line); }
 .contact-list li {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 20px;
@@ -509,10 +507,62 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .lineup .note { margin-left: 0; width: 100%; }
   .facts { grid-template-columns: 1fr; }
   .fact, .fact:nth-child(2n), .fact:not(:nth-child(3n + 1)) { padding: 20px 0; border-left: 0; }
-  .pillar { grid-template-columns: 1fr; }
+  .pillar { grid-template-columns: 1fr; padding: 24px 22px 26px; }
   .pillar-no { grid-row: auto; margin-bottom: 14px; font-size: 2.25rem; }
-  .pillar { padding: 24px 22px 26px; }
   .section-court::before, .section-green::before { display: none; }
+}
+
+/* ---------- Animaties (alleen als de bezoeker beweging niet heeft uitgezet) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Logo: beeldmerk rolt binnen, balkjes springen op als een equalizer, woordmerk schuift mee */
+  .js .brand-pill { animation: pd-fade .5s ease both; }
+  .js .brand-icon { animation: pd-pop .8s cubic-bezier(.2, .9, .25, 1) both; }
+  .js .brand-word { animation: pd-word .7s .3s cubic-bezier(.2, .8, .2, 1) both; }
+  .js .brand-bars rect { animation: pd-eq 1.2s .45s cubic-bezier(.3, .7, .3, 1) both; }
+  .js .brand-bars rect:nth-child(2) { animation-delay: .52s; }
+  .js .brand-bars rect:nth-child(3) { animation-delay: .59s; }
+  .js .brand-bars rect:nth-child(4) { animation-delay: .66s; }
+  .js .brand-bars rect:nth-child(5) { animation-delay: .73s; }
+
+  /* Bij hover of focus speelt de equalizer zachtjes mee */
+  .brand:hover .brand-bars rect,
+  .brand:focus-visible .brand-bars rect { animation: pd-eq-loop .9s ease-in-out infinite; }
+  .brand:hover .brand-bars rect:nth-child(2), .brand:focus-visible .brand-bars rect:nth-child(2) { animation-delay: -.45s; }
+  .brand:hover .brand-bars rect:nth-child(3), .brand:focus-visible .brand-bars rect:nth-child(3) { animation-delay: -.2s; }
+  .brand:hover .brand-bars rect:nth-child(4), .brand:focus-visible .brand-bars rect:nth-child(4) { animation-delay: -.65s; }
+  .brand:hover .brand-bars rect:nth-child(5), .brand:focus-visible .brand-bars rect:nth-child(5) { animation-delay: -.35s; }
+
+  /* Scroll: blokken schuiven rustig omhoog zodra ze in beeld komen */
+  .reveal-on .reveal { opacity: 0; transform: translateY(28px); }
+  .reveal-on .reveal.is-visible {
+    opacity: 1; transform: none;
+    transition: opacity .7s ease, transform .8s cubic-bezier(.2, .8, .2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+}
+
+@keyframes pd-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pd-pop {
+  from { opacity: 0; transform: scale(.4) rotate(-120deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pd-word {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pd-eq {
+  0%   { transform: scaleY(.15); }
+  30%  { transform: scaleY(1.25); }
+  55%  { transform: scaleY(.7); }
+  78%  { transform: scaleY(1.08); }
+  100% { transform: scaleY(1); }
+}
+@keyframes pd-eq-loop {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(.45); }
 }
 
 @media (prefers-reduced-motion: reduce) {
