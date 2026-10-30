@@ -9,7 +9,7 @@ Geen build, geen database, geen betaalde diensten. Klaar voor gratis hosting op 
 PaDance Site/
 ├── index.html            De pagina (alle teksten staan hier)
 ├── css/style.css         Vormgeving (kleuren bovenaan bij :root)
-├── js/main.js            Menu, ticketlinks en formulier (links invullen bovenaan)
+├── js/main.js            Menu, deelnameprijs (bovenaan invullen) en duo-formulier
 ├── images/
 │   ├── hero.jpg          Foto bovenaan
 │   ├── sfeer.jpg         Sfeerbeeld onder Concept
@@ -27,7 +27,7 @@ PaDance Site/
 
 **Snelst:** dubbelklik op `index.html`. De pagina opent in je browser.
 
-Het interesseformulier werkt pas online (op Netlify). Lokaal krijg je daar een melding over; dat is normaal.
+Het inschrijfformulier werkt pas online (op Netlify). Lokaal krijg je daar een melding over; dat is normaal.
 
 ## 2. Invulvelden aanpassen
 
@@ -55,29 +55,34 @@ Lijst van invulvelden:
 | `[LOCATIE]`, `[ADRES]` | Hero, Praktisch |
 | `[STARTUUR]`, `[EINDUUR]`, `[UUR]` (5×) | Praktisch, Programma |
 | `[DJ 1]`, `[DJ 2]`, `[DJ 3]` | Programma (line-up) |
-| `[PRIJS]` (2×), `[WAT IS INBEGREPEN]` (2×) | Tickets |
-| `[TICKETLINK]` | Tickets (meldingsvak) |
+| Deelnameprijs per duo (staat nu op "volgt") | `js/main.js`, zie hieronder |
 | `[FIETS / OPENBAAR VERVOER / PARKING]`, `[RACKET, SPORTSCHOENEN, ...]`, `[INFO TOEGANKELIJKHEID]` | Praktisch |
-| FAQ-antwoorden: `[ANTWOORD ...]`, `[BEVESTIGEN + TICKETINFO]`, `[WEERPLAN]`, `[LEEFTIJD]`, `[ANNULERINGSVOORWAARDEN]` | Praktisch |
+| FAQ-antwoorden: `[ANTWOORD ...]`, `[WEERPLAN]`, `[LEEFTIJD]`, `[ANNULERINGSVOORWAARDEN]` | Praktisch |
 | `[E-MAILADRES]`, `[INSTAGRAM-ACCOUNT]`, `[TIKTOK-ACCOUNT]` | Contact (voorbeeldcode staat erboven in een commentaar) |
 | `[LINK NAAR PRIVACYVERKLARING]`, `[NAAM STUDENTENBEDRIJF + ONDERNEMINGSNUMMER]` | Footer |
 
 Vergeet ook de **slogan** niet te bevestigen ("Padel heeft een ritme. Muziek ook." komt uit jullie pitch) en pas
 de beschrijving in de `<head>` van `index.html` aan zodra datum en locatie vastliggen.
 
-### Ticket- en inschrijfknoppen
+### Inschrijven en deelnameprijs
 
-Zolang er geen ticketlink is, springen de knoppen naar het oranje gestippelde vak "De ticketverkoop is nog niet open".
-Heb je een link (bv. van een gratis ticketplatform)? Open `js/main.js` en vul bovenaan in:
+- **Bezoekers komen gratis binnen.** Er is geen ticket en geen inschrijving voor toeschouwers.
+- **Alleen spelers schrijven zich in, per duo.** Het formulier staat in de sectie "Inschrijven", direct onder de openingsbanner.
+  Alle knoppen "Schrijf je duo in" (header, banner, contact en de vaste knop onderaan op mobiel) springen daarheen.
+- Elk duo kiest precies één team: **Rood team** of **Blauw team**. Rood en blauw komen alleen bij die keuze voor, niet in de rest van de huisstijl.
+
+**Prijs invullen** zodra die definitief is: open `js/main.js` en vul bovenaan alleen het bedrag in:
 
 ```js
 const CONFIG = {
-  registrationUrl: 'https://...',  // knop "Schrijf je duo in"
-  ticketUrl: 'https://...'         // knop "Koop een ticket"
+  priceDuo: '30'   // voorbeeld, wordt "Deelnameprijs: €30 / per duo, voor twee spelers samen"
 };
 ```
 
-Alle ticketknoppen gebruiken dan automatisch die link. Pas daarna ook de tekst in het meldingsvak aan.
+Zolang dit leeg is, toont de site "Deelnameprijs: volgt". De prijs verschijnt in het formulier en in de FAQ.
+
+**Betalen:** er is nog géén betaalstap gekoppeld. Het formulier registreert alleen de inschrijving (Netlify Forms, formuliernaam `duo-inschrijving`).
+Onder de knop staat: "Hoe en wanneer je de deelnameprijs betaalt, laten we je per mail weten." Pas die zin aan zodra jullie een betaalmethode kiezen.
 
 ## 3. Eigen beelden plaatsen
 
@@ -97,7 +102,7 @@ Gebruik alleen foto's die jullie zelf maakten of waarvoor je toestemming hebt. G
 4. Een update? Open de site in Netlify → **Deploys** → sleep de map opnieuw.
 
 **Het formulier activeren:** ga in Netlify naar **Forms** en klik op **Enable form detection**, en sleep de map daarna nog één keer opnieuw.
-Inzendingen zie je dan onder **Forms → interesse**. Het gratis plan heeft een maandelijkse limiet op inzendingen; controleer de actuele limiet op netlify.com.
+Inzendingen zie je dan onder **Forms → duo-inschrijving** (contactpersoon, e-mail, tweede speler, team). Het gratis plan heeft een maandelijkse limiet op inzendingen; controleer de actuele limiet op netlify.com.
 
 ### Je domein padance.be koppelen
 
@@ -110,10 +115,11 @@ De metadata (`og:url`, `canonical`, sitemap) gaan al uit van `https://padance.be
 
 ## 5. Kleuren en stijl
 
-- Basis: crème/zand `#F4EFE6` (de crèmekleur uit het logo) en diep baangroen `#0E3B2E`.
-- Accent: PaDance-oranje `#FF5A1F` voor knoppen. Voor oranje tekst op licht wordt het donkerdere `#D9420F` uit de pitch gebruikt, zodat het leesbaar blijft.
-- Lime `#E6F53A` alleen op donkere vlakken (scorebord, labels), zoals in het logo.
-- Het logo staat altijd in de originele kleuren. Op een lichte achtergrond staat het op het donkere label uit de pitchdeck (de crème "Pa" valt anders weg).
+- Achtergrond: warm crème `#FFF9F2`. Tekst: donkergrijs `#2B2B2E`.
+- Pasteloranje `#F4B183` voor knoppen en accenten (met donkere tekst, contrast 7,7:1). Oranje **tekst** op licht gebruikt `#A4501E`, zodat het leesbaar blijft.
+- Zacht saliegroen `#B8D8C0` voor vlakken (scorebord, band, Programma, Contact), lichte variant `#E6F1E8` achter het formulier. Groene tekst: `#2F5A40`.
+- Teamkleuren rood `#C8283A` en blauw `#1F5BC4` **alleen** in de teamkeuze van het formulier.
+- Het logo staat altijd in de originele kleuren, op het donkere label uit de pitchdeck (de crème "Pa" valt anders weg).
 
 Alle kleuren staan bovenaan in `css/style.css` en kun je daar centraal aanpassen.
 
