@@ -3,40 +3,106 @@
    De site werkt ook zonder JavaScript.
    ========================================================= */
 
-/* ----- INVULLEN: links voor inschrijven en tickets -----
-   Laat leeg ('') zolang er nog geen link is: de knoppen springen dan
-   naar het gemarkeerde vak "De ticketverkoop is nog niet open".
-   Voorbeeld: registrationUrl: 'https://jouw-ticketplatform.be/padance-duo'  */
+/* ----- INVULLEN: deelnameprijs per duo -----
+   Laat leeg ('') zolang de prijs niet definitief is: de site toont dan "volgt".
+   Alleen het bedrag invullen, zonder euroteken. Voorbeeld: priceDuo: '30'
+   De site zet er zelf "€" voor; "per duo, voor twee spelers samen" staat er al bij. */
 const CONFIG = {
-  registrationUrl: '', // [INSCHRIJFLINK SPELERS]
-  ticketUrl: ''        // [TICKETLINK SUPPORTERS]
+  priceDuo: '' // [DEELNAMEPRIJS PER DUO, nog niet bevestigd]
 };
 
 (function () {
   'use strict';
 
-  /* Ticketknoppen koppelen aan de echte links zodra die ingevuld zijn */
-  var links = { registration: CONFIG.registrationUrl, ticket: CONFIG.ticketUrl || CONFIG.registrationUrl };
-  document.querySelectorAll('[data-link]').forEach(function (a) {
-    var url = links[a.getAttribute('data-link')];
-    if (url) {
-      a.href = url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-    }
-  });
+  /* Prijs per duo overal hetzelfde tonen */
+  if (CONFIG.priceDuo) {
+    document.querySelectorAll('[data-price-duo]').forEach(function (el) {
+      el.textContent = '€' + String(CONFIG.priceDuo).replace(/^€\s*/, '');
+    });
+  }
 
-  /* Zachte focus en markering als je naar het invulvak springt */
-  var notice = document.getElementById('ticketlink');
-  document.querySelectorAll('a[href="#ticketlink"]').forEach(function (a) {
+  /* Teams: "oranje" en "groen" in de link (?team=...) worden de formulierwaarden hieronder */
+  var TEAMS = { oranje: 'Oranje team', groen: 'Groen team' };
+  var params = new URLSearchParams(window.location.search);
+  var teamParam = (params.get('team') || '').toLowerCase();
+  if (!TEAMS[teamParam]) teamParam = '';
+  function teamKey(value) {
+    for (var k in TEAMS) { if (TEAMS[k] === value) return k; }
+    return '';
+  }
+
+  /* Na een klik op "Schrijf je duo in": teamknoppen even laten oplichten */
+  var battle = document.querySelector('.team-battle');
+  document.querySelectorAll('a[href="#inschrijven"]').forEach(function (a) {
     a.addEventListener('click', function () {
-      if (!notice) return;
+      if (!battle) return;
       window.setTimeout(function () {
-        notice.focus({ preventScroll: true });
-        notice.classList.add('is-highlighted');
-      }, 350);
+        battle.classList.add('is-highlighted');
+        window.setTimeout(function () { battle.classList.remove('is-highlighted'); }, 1600);
+      }, 400);
     });
   });
+
+  var duoForm = document.querySelector('.duo-form');
+
+  /* Teamkeuze (eilandjes): gekozen team markeren, ook in browsers zonder :has.
+     De keuze zelf blijft een gewone, verplichte radioknop "team". */
+  var teamInputs = document.querySelectorAll('.team input');
+  var teamPick = document.querySelector('.team-pick');
+  var teamOptions = document.querySelector('.team-options');
+  function syncTeams() {
+    var any = false;
+    teamInputs.forEach(function (i) {
+      i.closest('.team').classList.toggle('is-selected', i.checked);
+      if (i.checked) any = true;
+    });
+    if (teamOptions) teamOptions.classList.toggle('has-choice', any);
+    if (any && teamPick) teamPick.classList.remove('is-invalid');
+    var checked = document.querySelector('.team input:checked');
+    document.body.setAttribute('data-team', checked ? teamKey(checked.value) : '');
+  }
+  teamInputs.forEach(function (input) {
+    input.addEventListener('change', syncTeams);
+    /* Geen team gekozen bij versturen: duidelijke melding bij de eilandjes */
+    input.addEventListener('invalid', function (e) {
+      e.preventDefault();
+      if (!teamPick) return;
+      teamPick.classList.remove('is-invalid');
+      void teamPick.offsetWidth; /* animatie opnieuw starten */
+      teamPick.classList.add('is-invalid');
+      teamPick.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
+  });
+
+  /* Stap 2: team van de knop op de homepagina alvast aanduiden */
+  if (teamParam) {
+    teamInputs.forEach(function (i) { if (i.value === TEAMS[teamParam]) i.checked = true; });
+  }
+  if (teamInputs.length) syncTeams();
+
+  /* Stap 3: gekozen team tonen op de betaalpagina */
+  var badge = document.querySelector('[data-team-badge]');
+  if (badge && teamParam) {
+    badge.querySelector('[data-team-name]').textContent = TEAMS[teamParam];
+    badge.hidden = false;
+    document.body.setAttribute('data-team', teamParam);
+  }
+
+  /* Vaste inschrijfknop op mobiel: zichtbaar na de openingsbanner, weg bij het formulier */
+  var mobileCta = document.querySelector('.mobile-cta');
+  var heroCta = document.querySelector('.hero-cta');
+  var register = document.getElementById('inschrijven');
+  if (mobileCta && heroCta && register && 'IntersectionObserver' in window) {
+    var heroVisible = true, registerVisible = false;
+    var update = function () {
+      var show = !heroVisible && !registerVisible;
+      mobileCta.classList.toggle('is-shown', show);
+      mobileCta.setAttribute('aria-hidden', String(!show));
+      mobileCta.querySelector('a').tabIndex = show ? 0 : -1;
+    };
+    new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); }).observe(heroCta);
+    new IntersectionObserver(function (e) { registerVisible = e[0].isIntersecting; update(); }, { threshold: 0.05 }).observe(register);
+  }
 
   /* Mobiel menu */
   var toggle = document.querySelector('.nav-toggle');
@@ -75,7 +141,7 @@ const CONFIG = {
   if (motionOk && 'IntersectionObserver' in window) {
     var targets = document.querySelectorAll(
       '.hero-visual, .section-head, .pillar, .wide-figure, .timeline li, .lineup, ' +
-      '.ticket, .notice, .interest-form, .fact, .faq, .contact-list li'
+      '.team-card, .register-facts > *, .fact, .faq, .contact-list li'
     );
     targets.forEach(function (el) {
       el.classList.add('reveal');
@@ -100,20 +166,28 @@ const CONFIG = {
     el.textContent = new Date().getFullYear();
   });
 
-  /* Interesseformulier (Netlify Forms) zonder pagina te verlaten */
-  var form = document.querySelector('.interest-form');
-  if (form) {
-    var status = form.querySelector('.form-status');
-    form.addEventListener('submit', function (e) {
+  /* Duo-inschrijving (Netlify Forms) en daarna door naar stap 3 (betalen.html).
+     Er is nog geen echte betaalstap gekoppeld: betalen.html is een duidelijke tussenpagina. */
+  if (duoForm) {
+    var status = duoForm.querySelector('.form-status');
+    var nextUrl = function () {
+      var checked = duoForm.querySelector('.team input:checked');
+      var key = checked ? teamKey(checked.value) : '';
+      return 'betalen.html' + (key ? '?team=' + key : '');
+    };
+    duoForm.addEventListener('submit', function (e) {
       e.preventDefault();
       status.classList.remove('is-error');
 
       if (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-        status.textContent = 'Lokale voorbeeldweergave: het formulier werkt pas als de site op Netlify staat.';
+        status.textContent = 'Lokale voorbeeldweergave: er wordt niets verstuurd. Je gaat zo door naar de betaalpagina.';
+        window.setTimeout(function () { window.location.href = nextUrl(); }, 1400);
         return;
       }
 
-      var data = new URLSearchParams(new FormData(form)).toString();
+      var data = new URLSearchParams(new FormData(duoForm)).toString();
+      var button = duoForm.querySelector('button[type="submit"]');
+      button.disabled = true;
       status.textContent = 'Even geduld...';
       fetch('/', {
         method: 'POST',
@@ -121,9 +195,9 @@ const CONFIG = {
         body: data
       }).then(function (res) {
         if (!res.ok) throw new Error(res.status);
-        form.reset();
-        status.textContent = 'Bedankt! We laten je weten wanneer de inschrijvingen openen.';
+        window.location.href = nextUrl();
       }).catch(function () {
+        button.disabled = false;
         status.classList.add('is-error');
         status.textContent = 'Er ging iets mis. Probeer het later opnieuw.';
       });

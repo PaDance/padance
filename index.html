@@ -6,7 +6,7 @@
 
   <!-- ===== Metadata: pas datum en locatie aan zodra ze bevestigd zijn ===== -->
   <title>PaDance · Padel × muziek in Leuven</title>
-  <meta name="description" content="PaDance combineert een padeltoernooi in duo's met DJ's en een festivalsfeer in Leuven. Gratis toegankelijk voor bezoekers. Zelf padellen? Schrijf je duo in voor het rode of blauwe team. Mei 2027.">
+  <meta name="description" content="PaDance combineert een padeltoernooi in duo's met DJ's en een festivalsfeer in Leuven. Gratis toegankelijk voor bezoekers. Zelf padellen? Schrijf je duo in voor het oranje of groene team. Mei 2027.">
   <link rel="canonical" href="https://padance.be/">
   <meta name="theme-color" content="#FFF9F2">
 
@@ -79,6 +79,12 @@
 
     <!-- ===================== HERO ===================== -->
     <section class="hero" aria-labelledby="hero-title">
+      <!-- Speelse vormen op de achtergrond (puur decoratief) -->
+      <div class="shapes" aria-hidden="true">
+        <span class="shape shape-a"></span>
+        <span class="shape shape-b"></span>
+        <span class="shape shape-ball"></span>
+      </div>
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Padel × muziek × community</p>
@@ -98,7 +104,7 @@
             </li>
             <li class="access-item access-play">
               <span class="access-tag">Spelers</span>
-              <p>Wil je zelf padellen? Schrijf je dan per duo in en kies voor het rode of blauwe team. Voor de padelinschrijving betaal je per duo.</p>
+              <p>Wil je zelf padellen? Schrijf je dan per duo in en kies voor het <b class="tn tn-a">oranje</b> of <b class="tn tn-b">groene</b> team. Voor de padelinschrijving betaal je per duo.</p>
             </li>
           </ul>
 
@@ -141,94 +147,56 @@
       <div class="wrap">
         <header class="section-head">
           <p class="kicker"><span>01</span> Inschrijven</p>
-          <h2 id="inschrijven-title">Schrijf je duo in.</h2>
+          <h2 id="inschrijven-title">Schrijf je duo in.<br><span class="h-accent">Kies je kant.</span></h2>
           <p class="section-intro">
-            Kom je enkel kijken en supporten? Dan hoef je niets te doen: PaDance is gratis toegankelijk.
-            Wil je zelf padellen? Schrijf je hieronder in met je duopartner en kies het rode of blauwe team.
+            Kijken en supporten is gratis, daarvoor hoef je niets te doen. Wil je zelf padellen? Kies met je duopartner het
+            <b class="tn tn-a">oranje</b> of <b class="tn tn-b">groene</b> team. Je betaalt per duo.
           </p>
         </header>
 
-        <div class="register-grid">
-          <!-- Duo-inschrijving: werkt gratis via Netlify Forms zodra de site online staat.
-               Er is nog geen betaalstap gekoppeld. -->
-          <form class="duo-form" name="duo-inschrijving" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="duo-inschrijving">
-            <p class="hp" aria-hidden="true"><label>Laat dit leeg <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <!-- Stap 1: team kiezen. Elke knop opent de inschrijfpagina met dat team al aangeduid. -->
+        <ol class="steps" aria-label="Zo schrijf je je duo in">
+          <li class="is-current"><span>1</span> Kies jullie team</li>
+          <li><span>2</span> Vul jullie duo in</li>
+          <li><span>3</span> Betalen</li>
+        </ol>
 
-            <div class="price-line">
-              <!-- Prijs invullen in js/main.js (CONFIG.priceDuo). Zolang die leeg is, staat hier "volgt". -->
-              <p class="price">Deelnameprijs: <span data-price-duo>volgt</span></p>
-              <p class="price-per">per duo, voor twee spelers samen</p>
-              <p class="price-note">Eén inschrijving geldt voor twee spelers.</p>
-            </div>
+        <div class="team-battle">
+          <a class="team-card team-card-a" href="inschrijven.html?team=oranje">
+            <span class="team-card-icon" aria-hidden="true"><svg viewBox="0 0 64 64" class="team-racket"><ellipse cx="27" cy="25" rx="17" ry="19" fill="currentColor" opacity=".18"/><ellipse cx="27" cy="25" rx="17" ry="19" fill="none" stroke="currentColor" stroke-width="4"/><g fill="currentColor"><circle cx="21" cy="18" r="2.4"/><circle cx="29" cy="15" r="2.4"/><circle cx="20" cy="27" r="2.4"/><circle cx="28" cy="24" r="2.4"/><circle cx="35" cy="21" r="2.4"/><circle cx="27" cy="33" r="2.4"/><circle cx="35" cy="30" r="2.4"/></g><path d="M38 40l14 15" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg><span class="team-ball"></span></span>
+            <span class="team-card-label">Speel voor</span>
+            <span class="team-card-name">Oranje<small>team</small></span>
+            <span class="team-card-cta">Kies oranje <span aria-hidden="true">→</span></span>
+          </a>
+          <span class="battle-vs" aria-hidden="true">VS</span>
+          <a class="team-card team-card-b" href="inschrijven.html?team=groen">
+            <span class="team-card-icon" aria-hidden="true"><svg viewBox="0 0 64 64" class="team-racket"><ellipse cx="27" cy="25" rx="17" ry="19" fill="currentColor" opacity=".18"/><ellipse cx="27" cy="25" rx="17" ry="19" fill="none" stroke="currentColor" stroke-width="4"/><g fill="currentColor"><circle cx="21" cy="18" r="2.4"/><circle cx="29" cy="15" r="2.4"/><circle cx="20" cy="27" r="2.4"/><circle cx="28" cy="24" r="2.4"/><circle cx="35" cy="21" r="2.4"/><circle cx="27" cy="33" r="2.4"/><circle cx="35" cy="30" r="2.4"/></g><path d="M38 40l14 15" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg><span class="team-ball"></span></span>
+            <span class="team-card-label">Speel voor</span>
+            <span class="team-card-name">Groen<small>team</small></span>
+            <span class="team-card-cta">Kies groen <span aria-hidden="true">→</span></span>
+          </a>
+        </div>
 
-            <fieldset class="team-pick">
-              <legend>Kies jullie team <span class="req">(verplicht)</span></legend>
-              <div class="team-options">
-                <label class="team team-red">
-                  <input type="radio" name="team" value="Rood team" required>
-                  <span class="team-swatch" aria-hidden="true"></span>
-                  <span class="team-name">Rood team</span>
-                  <span class="team-check" aria-hidden="true">Gekozen</span>
-                </label>
-                <label class="team team-blue">
-                  <input type="radio" name="team" value="Blauw team" required>
-                  <span class="team-swatch" aria-hidden="true"></span>
-                  <span class="team-name">Blauw team</span>
-                  <span class="team-check" aria-hidden="true">Gekozen</span>
-                </label>
-              </div>
-            </fieldset>
-
-            <div class="form-cols">
-              <div class="field">
-                <label for="contact-naam">Naam contactpersoon</label>
-                <input id="contact-naam" name="contact_naam" type="text" autocomplete="name" required>
-              </div>
-              <div class="field">
-                <label for="contact-email">E-mailadres contactpersoon</label>
-                <input id="contact-email" name="contact_email" type="email" autocomplete="email" required placeholder="naam@voorbeeld.be">
-              </div>
-              <div class="field field-wide">
-                <label for="speler-2">Naam tweede speler</label>
-                <input id="speler-2" name="speler_2_naam" type="text" autocomplete="off" required>
-              </div>
-            </div>
-
-            <label class="consent">
-              <input type="checkbox" name="bevestiging_duo" value="ja" required>
-              <span>Ik bevestig dat deze inschrijving geldt voor twee spelers: mezelf en de tweede speler hierboven.</span>
-            </label>
-            <label class="consent">
-              <input type="checkbox" name="toestemming" value="ja" required>
-              <span>PaDance mag mij mailen over deze inschrijving. Meer info in de <a href="#privacy">privacyverklaring</a>.</span>
-            </label>
-
-            <button class="btn btn-primary btn-lg" type="submit">Schrijf ons duo in</button>
-            <p class="form-small">Hoe en wanneer je de deelnameprijs betaalt, laten we je per mail weten.</p>
-            <p class="form-status" role="status" aria-live="polite"></p>
-          </form>
-
-          <aside class="register-info" aria-label="Goed om te weten">
-            <div class="info-card info-free">
-              <p class="info-tag">Bezoekers</p>
-              <h3>Gratis binnen</h3>
-              <p>Kijken, supporten en genieten van de muziek kost niets. Je hoeft je niet in te schrijven.</p>
-            </div>
-            <div class="info-card">
-              <p class="info-tag">Spelers</p>
-              <h3>Per duo, één team</h3>
-              <p>Je schrijft je in met twee. Samen kiezen jullie voor het rode of het blauwe team. Rood en blauw zijn de twee kampen binnen de PaDance-spelbeleving.</p>
-            </div>
-          </aside>
+        <div class="register-facts">
+          <div class="price-line">
+            <!-- Prijs invullen in js/main.js (CONFIG.priceDuo). Zolang die leeg is, staat hier "volgt". -->
+            <p class="price">Deelnameprijs: <span data-price-duo>volgt</span></p>
+            <p class="price-per">per duo, voor twee spelers samen</p>
+            <p class="price-note">Eén inschrijving geldt voor twee spelers.</p>
+          </div>
+          <div class="free-line">
+            <p class="info-tag">Bezoekers</p>
+            <p><strong>Gratis binnen.</strong> Kijken, supporten en genieten kost niets. Je hoeft je niet in te schrijven.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Band met kernwoorden -->
     <div class="band" aria-hidden="true">
-      <div class="band-inner">
-        <span>Padel</span><i></i><span>DJ's</span><i></i><span>Samen</span><i></i><span>Leuven</span><i></i><span>Mei 2027</span>
+      <div class="band-track">
+        <div class="band-inner"><span>Padel</span><i></i><span>DJ's</span><i></i><span>Oranje vs groen</span><i></i><span>Samen</span><i></i><span>Leuven</span><i></i><span>Mei 2027</span><i></i></div>
+        <div class="band-inner"><span>Padel</span><i></i><span>DJ's</span><i></i><span>Oranje vs groen</span><i></i><span>Samen</span><i></i><span>Leuven</span><i></i><span>Mei 2027</span><i></i></div>
       </div>
     </div>
 
@@ -293,7 +261,7 @@
             <span class="t-time"><span class="ph ph-dark">[UUR]</span></span>
             <div class="t-body">
               <h3>Toernooi in duo's</h3>
-              <p>Wedstrijden in teams van twee, elk duo in het rode of blauwe team. De exacte formule volgt.</p>
+              <p>Wedstrijden in teams van twee, elk duo in het oranje of groene team. De exacte formule volgt.</p>
             </div>
           </li>
           <li>
@@ -381,8 +349,8 @@
             <p>Deelnameprijs: <span data-price-duo>volgt</span>. Die prijs geldt per duo, voor twee spelers samen. Alleen wie zelf padelt, betaalt. Bezoekers komen gratis binnen.</p>
           </details>
           <details>
-            <summary>Wat betekenen het rode en het blauwe team?</summary>
-            <p>Rood en blauw zijn de twee teams binnen de PaDance-spelbeleving. Elk duo kiest er precies één. Hoe de teams het tegen elkaar opnemen, maken we later bekend.</p>
+            <summary>Wat betekenen het oranje en het groene team?</summary>
+            <p>Oranje en groen zijn de twee teams binnen de PaDance-spelbeleving. Elk duo kiest er precies één. Hoe de teams het tegen elkaar opnemen, maken we later bekend.</p>
           </details>
           <details>
             <summary>Wat als het regent?</summary>

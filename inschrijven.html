@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schrijf je duo in · PaDance</title>
+  <meta name="description" content="Schrijf je padelduo in voor PaDance in Leuven: kies het oranje of groene team. Bezoekers komen gratis binnen.">
+  <meta name="theme-color" content="#FFF9F2">
+  <link rel="icon" href="assets/padance-favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/padance-favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preload" href="assets/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body class="flow-page" data-team="">
+  <a class="skip-link" href="#main">Ga naar de inhoud</a>
+
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="PaDance, naar de homepagina">
+        <svg class="brand-logo" viewBox="-2 -1.7 1172.5 304.4" width="1172" height="304" role="img" aria-label="PaDance">
+          <rect class="brand-pill" x="-2" y="-1.7" width="1172.5" height="304.4" rx="152.2" fill="#34323A"/>
+          <image class="brand-word" href="assets/logo/padance-wordmark-primary.svg" x="8" y="-42.75" width="1135" height="351"/>
+          <g transform="translate(66.5 33.5) scale(2.34)">
+            <g class="brand-icon">
+              <circle cx="50" cy="50" r="50" fill="#E6F53A"/>
+              <g class="brand-bars" fill="#08080B"><rect x="17.75" y="35" width="8.5" height="30" rx="4.25"/><rect x="31.75" y="24" width="8.5" height="52" rx="4.25"/><rect x="45.75" y="15" width="8.5" height="70" rx="4.25"/><rect x="59.75" y="27" width="8.5" height="46" rx="4.25"/><rect x="73.75" y="37" width="8.5" height="26" rx="4.25"/></g>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <a class="back-link" href="index.html#inschrijven"><span aria-hidden="true">←</span> Terug naar de site</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="flow-hero">
+      <div class="shapes" aria-hidden="true"><span class="shape shape-a"></span><span class="shape shape-b"></span></div>
+      <div class="wrap flow-wrap">
+        <ol class="steps" aria-label="Stappen van de inschrijving">
+          <li class="is-done"><span>1</span> Kies jullie team</li>
+          <li class="is-current" aria-current="step"><span>2</span> Vul jullie duo in</li>
+          <li><span>3</span> Betalen</li>
+        </ol>
+        <h1 class="flow-title">Vul jullie duo in.</h1>
+        <p class="flow-intro">Eén inschrijving geldt voor twee spelers. Alleen wie zelf padelt, betaalt; bezoekers komen gratis binnen.</p>
+
+        <!-- Duo-inschrijving: werkt gratis via Netlify Forms zodra de site online staat.
+             Na het versturen gaat de bezoeker naar betalen.html (stap 3). Er is nog geen echte betaalstap gekoppeld. -->
+        <form class="duo-form" name="duo-inschrijving" method="POST" action="/betalen.html" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="duo-inschrijving">
+          <p class="hp" aria-hidden="true"><label>Laat dit leeg <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+          <!-- Teamkeuze: het team van de knop op de homepagina staat al aangeduid, maar kan nog gewisseld worden.
+               Onder elk eiland zit een gewone, verplichte radioknop "team" (Oranje team of Groen team). -->
+          <fieldset class="team-pick">
+            <legend>Jullie team <span class="req">(verplicht)</span></legend>
+            <div class="team-options">
+                <label class="team team-a">
+                  <input type="radio" name="team" value="Oranje team" required>
+                  <span class="team-island" aria-hidden="true"><svg viewBox="0 0 64 64" class="team-racket"><ellipse cx="27" cy="25" rx="17" ry="19" fill="currentColor" opacity=".18"/><ellipse cx="27" cy="25" rx="17" ry="19" fill="none" stroke="currentColor" stroke-width="4"/><g fill="currentColor"><circle cx="21" cy="18" r="2.4"/><circle cx="29" cy="15" r="2.4"/><circle cx="20" cy="27" r="2.4"/><circle cx="28" cy="24" r="2.4"/><circle cx="35" cy="21" r="2.4"/><circle cx="27" cy="33" r="2.4"/><circle cx="35" cy="30" r="2.4"/></g><path d="M38 40l14 15" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg><span class="team-ball"></span></span>
+                  <span class="team-name">Oranje <small>team</small></span>
+                  <span class="team-check" aria-hidden="true">Jullie team</span>
+                </label>
+              <span class="team-vs" aria-hidden="true">VS</span>
+                <label class="team team-b">
+                  <input type="radio" name="team" value="Groen team" required>
+                  <span class="team-island" aria-hidden="true"><svg viewBox="0 0 64 64" class="team-racket"><ellipse cx="27" cy="25" rx="17" ry="19" fill="currentColor" opacity=".18"/><ellipse cx="27" cy="25" rx="17" ry="19" fill="none" stroke="currentColor" stroke-width="4"/><g fill="currentColor"><circle cx="21" cy="18" r="2.4"/><circle cx="29" cy="15" r="2.4"/><circle cx="20" cy="27" r="2.4"/><circle cx="28" cy="24" r="2.4"/><circle cx="35" cy="21" r="2.4"/><circle cx="27" cy="33" r="2.4"/><circle cx="35" cy="30" r="2.4"/></g><path d="M38 40l14 15" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg><span class="team-ball"></span></span>
+                  <span class="team-name">Groen <small>team</small></span>
+                  <span class="team-check" aria-hidden="true">Jullie team</span>
+                </label>
+            </div>
+            <p class="team-error" id="team-error">Kies eerst jullie team: oranje of groen.</p>
+          </fieldset>
+
+          <div class="form-cols">
+            <div class="field">
+              <label for="contact-naam">Naam contactpersoon</label>
+              <input id="contact-naam" name="contact_naam" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="contact-email">E-mailadres contactpersoon</label>
+              <input id="contact-email" name="contact_email" type="email" autocomplete="email" required placeholder="naam@voorbeeld.be">
+            </div>
+            <div class="field field-wide">
+              <label for="speler-2">Naam tweede speler</label>
+              <input id="speler-2" name="speler_2_naam" type="text" autocomplete="off" required>
+            </div>
+          </div>
+
+          <div class="price-line">
+            <!-- Prijs invullen in js/main.js (CONFIG.priceDuo). Zolang die leeg is, staat hier "volgt". -->
+            <p class="price">Deelnameprijs: <span data-price-duo>volgt</span></p>
+            <p class="price-per">per duo, voor twee spelers samen</p>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" name="bevestiging_duo" value="ja" required>
+            <span>Ik bevestig dat deze inschrijving geldt voor twee spelers: mezelf en de tweede speler hierboven.</span>
+          </label>
+          <label class="consent">
+            <input type="checkbox" name="toestemming" value="ja" required>
+            <span>PaDance mag mij mailen over deze inschrijving. Meer info in de <a href="#privacy">privacyverklaring</a>.</span>
+          </label>
+
+          <button class="btn btn-primary btn-lg btn-team" type="submit">Verder naar betalen <span aria-hidden="true">→</span></button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer site-footer-slim">
+    <div class="wrap footer-inner">
+      <img src="assets/logo/padance-logo-primary.svg" alt="PaDance" width="1135" height="351" class="footer-logo">
+      <div class="footer-text">
+        <p>PaDance is een project binnen Vlajo Studentenbedrijf. Bezoekers komen gratis binnen.</p>
+        <p id="privacy">Privacy: <span class="ph ph-dark">[LINK NAAR PRIVACYVERKLARING]</span></p>
+      </div>
+      <a class="to-top" href="index.html">Naar de homepagina</a>
+    </div>
+  </footer>
+</body>
+</html>

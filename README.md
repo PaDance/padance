@@ -7,7 +7,9 @@ Geen build, geen database, geen betaalde diensten. Klaar voor gratis hosting op 
 
 ```
 PaDance Site/
-├── index.html            De pagina (alle teksten staan hier)
+├── index.html            Homepagina (stap 1: team kiezen)
+├── inschrijven.html      Stap 2: duogegevens invullen (formulier)
+├── betalen.html          Stap 3: betalen (nog een tussenpagina, zie hieronder)
 ├── css/style.css         Vormgeving (kleuren bovenaan bij :root)
 ├── js/main.js            Menu, deelnameprijs (bovenaan invullen) en duo-formulier
 ├── images/
@@ -64,12 +66,23 @@ Lijst van invulvelden:
 Vergeet ook de **slogan** niet te bevestigen ("Padel heeft een ritme. Muziek ook." komt uit jullie pitch) en pas
 de beschrijving in de `<head>` van `index.html` aan zodra datum en locatie vastliggen.
 
-### Inschrijven en deelnameprijs
+### Inschrijven in drie stappen
 
 - **Bezoekers komen gratis binnen.** Er is geen ticket en geen inschrijving voor toeschouwers.
-- **Alleen spelers schrijven zich in, per duo.** Het formulier staat in de sectie "Inschrijven", direct onder de openingsbanner.
-  Alle knoppen "Schrijf je duo in" (header, banner, contact en de vaste knop onderaan op mobiel) springen daarheen.
-- Elk duo kiest precies één team: **Rood team** of **Blauw team**. Rood en blauw komen alleen bij die keuze voor, niet in de rest van de huisstijl.
+- **Alleen spelers schrijven zich in, per duo.** Elk duo kiest precies één team: **Oranje team** of **Groen team**.
+
+1. **Team kiezen** (`index.html`, sectie "Inschrijven", direct onder de openingsbanner): twee grote knoppen.
+   Ze openen `inschrijven.html?team=oranje` of `inschrijven.html?team=groen`.
+   Alle knoppen "Schrijf je duo in" (menu, banner, contact en de vaste knop op mobiel) springen naar die sectie.
+2. **Duo invullen** (`inschrijven.html`): het gekozen team staat al aangeduid en kan nog gewisseld worden.
+   Velden: naam en e-mail contactpersoon, naam tweede speler, team (verplicht), bevestiging "geldt voor twee spelers", toestemming.
+   Het formulier gaat naar Netlify Forms (formuliernaam `duo-inschrijving`) en stuurt daarna door naar stap 3.
+3. **Betalen** (`betalen.html`): toont het team en de prijs per duo. **Er is nog géén echte betaalmogelijkheid.**
+   De pagina zegt dat online betalen nog niet kan en dat de contactpersoon per mail hoort hoe het verder gaat.
+
+**Wat nodig is om echt online te laten betalen:** een betaaldienst kiezen (bv. een betaallink van jullie bank of een
+platform voor eventinschrijvingen), een rekening op naam van het studentenbedrijf, en de definitieve prijs.
+Zet de betaallink dan in `betalen.html` op de plek van `[BETAALLINK OF BETAALMETHODE]` (voorbeeldcode staat erboven).
 
 **Prijs invullen** zodra die definitief is: open `js/main.js` en vul bovenaan alleen het bedrag in:
 
@@ -79,10 +92,9 @@ const CONFIG = {
 };
 ```
 
-Zolang dit leeg is, toont de site "Deelnameprijs: volgt". De prijs verschijnt in het formulier en in de FAQ.
+Zolang dit leeg is, toont de site "Deelnameprijs: volgt". De prijs staat op alle drie de stappen en in de FAQ.
 
-**Betalen:** er is nog géén betaalstap gekoppeld. Het formulier registreert alleen de inschrijving (Netlify Forms, formuliernaam `duo-inschrijving`).
-Onder de knop staat: "Hoe en wanneer je de deelnameprijs betaalt, laten we je per mail weten." Pas die zin aan zodra jullie een betaalmethode kiezen.
+**Lokaal bekijken:** het formulier verstuurt lokaal niets; je gaat na een melding meteen door naar de betaalpagina, zodat je de flow kan zien.
 
 ## 3. Eigen beelden plaatsen
 
@@ -116,12 +128,17 @@ De metadata (`og:url`, `canonical`, sitemap) gaan al uit van `https://padance.be
 ## 5. Kleuren en stijl
 
 - Achtergrond: warm crème `#FFF9F2`. Tekst: donkergrijs `#2B2B2E`.
-- Pasteloranje `#F4B183` voor knoppen en accenten (met donkere tekst, contrast 7,7:1). Oranje **tekst** op licht gebruikt `#A4501E`, zodat het leesbaar blijft.
-- Zacht saliegroen `#B8D8C0` voor vlakken (scorebord, band, Programma, Contact), lichte variant `#E6F1E8` achter het formulier. Groene tekst: `#2F5A40`.
-- Teamkleuren rood `#C8283A` en blauw `#1F5BC4` **alleen** in de teamkeuze van het formulier.
-- Het logo staat altijd in de originele kleuren, op het donkere label uit de pitchdeck (de crème "Pa" valt anders weg).
+- Pasteloranje `#F4B183` voor knoppen en accenten (met donkere tekst). Oranje **tekst** op licht: `#A4501E`.
+- Zacht saliegroen `#B8D8C0` voor vlakken, lichte variant `#E6F1E8`. Groene tekst: `#2F5A40`.
+- Teams: Oranje team `#F08C4E` (tekst `#A4501E`) en Groen team `#6FB487` (tekst `#2F6B47`). Op de teamvlakken staat altijd donkere tekst.
+- Het logo staat altijd in de originele kleuren, op het donkere label uit de pitchdeck.
 
 Alle kleuren staan bovenaan in `css/style.css` en kun je daar centraal aanpassen.
+
+## Beweging
+
+Zwevende vormen en een stuiterend balletje in de hero, een lopende band met kernwoorden, wiebelende rackets op de teamknoppen
+en een "sprong" als je een team kiest. Wie op zijn toestel "minder beweging" heeft aangezet, ziet die animaties niet.
 
 ## Later toevoegen (aanrader)
 
